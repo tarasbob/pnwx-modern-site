@@ -1,27 +1,47 @@
 import type { Metadata } from "next";
-import AccessoriesContent from "./AccessoriesContent";
+import Breadcrumbs from "@/components/layout/Breadcrumbs";
+import ProductGrid from "@/components/product/ProductGrid";
+import ContactStrip from "@/components/ui/ContactStrip";
+import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { accessoriesCategories } from "@/data/accessories";
 
 export const metadata: Metadata = {
-  title: "Radiology Accessories",
+  title: "X-Ray Accessories",
   description:
-    "Browse our extensive collection of radiology accessories including radiation protection, MRI accessories, patient positioning, QC phantoms, and more.",
-  keywords: [
-    "radiology accessories",
-    "lead aprons",
-    "radiation protection",
-    "MRI accessories",
-    "patient positioning",
-    "QC phantoms",
-    "leaded eyewear",
-    "thyroid collars",
-  ],
-  openGraph: {
-    title: "Radiology Accessories | Pacific Northwest X-Ray Inc.",
-    description:
-      "Comprehensive range of radiology accessories for radiation protection, patient care, and quality control.",
-  },
+    "Browse our complete line of X-ray and radiology accessories including darkroom products, exam room solutions, film markers, cassettes, patient positioning aids, phantoms, seating, technologist aids, and radiation protection products.",
 };
 
 export default function AccessoriesPage() {
-  return <AccessoriesContent />;
+  const breadcrumbs = [{ label: "Accessories", href: "/accessories" }];
+
+  const items = accessoriesCategories.map((cat) => ({
+    name: cat.name,
+    description: cat.description,
+    href: `/accessories/${cat.slug}`,
+    itemCount: cat.itemCount,
+    image: cat.image,
+  }));
+
+  return (
+    <>
+      <BreadcrumbJsonLd items={breadcrumbs} />
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Breadcrumbs items={breadcrumbs} />
+        <div className="pb-16">
+          <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+            X-Ray Accessories
+          </h1>
+          <p className="mt-3 max-w-3xl text-lg text-gray-500">
+            Browse our complete line of X-ray and radiology accessories for every
+            department — from darkroom products and film markers to radiation
+            protection, patient positioning, and test phantoms.
+          </p>
+          <div className="mt-10">
+            <ProductGrid items={items} />
+          </div>
+        </div>
+      </div>
+      <ContactStrip />
+    </>
+  );
 }

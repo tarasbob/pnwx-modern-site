@@ -1,125 +1,91 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import { OrganizationJsonLd } from "@/components/seo/JsonLd";
+import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/constants";
 import "./globals.css";
-import PageShell from "@/components/PageShell";
 
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-inter",
   display: "swap",
+  variable: "--font-inter",
+});
+
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-jakarta",
+  weight: ["500", "600", "700", "800"],
+});
+
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-jetbrains",
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.pnwx.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Pacific Northwest X-Ray Inc. — X-Ray & Radiology Equipment Supplier",
-    template: "%s | Pacific Northwest X-Ray Inc.",
+    default: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    template: `%s | ${SITE_NAME}`,
   },
   description:
-    "Pacific Northwest X-Ray Inc. is your trusted source for X-Ray and radiology equipment, supplies, parts, and accessories. Serving medical, veterinary, and podiatric professionals nationwide since 1997.",
+    "Pacific Northwest X-Ray Inc. — your trusted source for X-ray and radiology equipment, supplies, parts, and accessories since 1997. Serving medical, veterinary, and dental professionals across the U.S.A.",
   keywords: [
-    "X-Ray equipment",
+    "x-ray equipment",
     "radiology supplies",
-    "medical imaging",
     "lead aprons",
+    "x-ray grids",
+    "portable x-ray",
+    "MRI safe products",
     "radiation protection",
-    "X-Ray parts",
-    "portable X-Ray",
-    "MRI accessories",
-    "QC phantoms",
-    "Pacific Northwest X-Ray",
+    "medical imaging",
+    "veterinary x-ray",
+    "radiology phantoms",
   ],
-  authors: [{ name: "Pacific Northwest X-Ray Inc." }],
   openGraph: {
     type: "website",
     locale: "en_US",
-    siteName: "Pacific Northwest X-Ray Inc.",
-    title: "Pacific Northwest X-Ray Inc. — X-Ray & Radiology Equipment Supplier",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
     description:
-      "Your complete source for X-Ray and radiology equipment, supplies, parts, and accessories. Serving customers nationwide since 1997.",
+      "Your trusted source for X-ray and radiology equipment, supplies, parts, and accessories since 1997.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pacific Northwest X-Ray Inc.",
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
     description:
-      "Your complete source for X-Ray and radiology equipment, supplies, parts, and accessories.",
+      "Your trusted source for X-ray and radiology equipment, supplies, parts, and accessories since 1997.",
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: { index: true, follow: true },
+  },
+  alternates: {
+    canonical: SITE_URL,
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "LocalBusiness",
-              name: "Pacific Northwest X-Ray Inc.",
-              description:
-                "Medical equipment supplier specializing in X-Ray and radiology equipment, supplies, parts and accessories.",
-              url: "https://www.pnwx.com",
-              telephone: "503-667-3000",
-              email: "SalesD@pnwx.com",
-              address: {
-                "@type": "PostalAddress",
-                streetAddress: "P.O. Box 625",
-                addressLocality: "Gresham",
-                addressRegion: "OR",
-                postalCode: "97030",
-                addressCountry: "US",
-              },
-              openingHoursSpecification: {
-                "@type": "OpeningHoursSpecification",
-                dayOfWeek: [
-                  "Monday",
-                  "Tuesday",
-                  "Wednesday",
-                  "Thursday",
-                  "Friday",
-                ],
-                opens: "08:00",
-                closes: "17:00",
-              },
-              foundingDate: "1997",
-              areaServed: {
-                "@type": "Country",
-                name: "United States",
-              },
-              priceRange: "$$",
-            }),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "Pacific Northwest X-Ray Inc.",
-              url: "https://www.pnwx.com",
-              contactPoint: {
-                "@type": "ContactPoint",
-                telephone: "+1-800-827-9729",
-                contactType: "sales",
-                areaServed: "US",
-                availableLanguage: "English",
-              },
-            }),
-          }}
-        />
-      </head>
-      <body className={`${inter.variable} font-sans antialiased bg-white text-gray-800`}>
-        <PageShell>{children}</PageShell>
+    <html
+      lang="en"
+      className={`${inter.variable} ${jakarta.variable} ${jetbrains.variable}`}
+    >
+      <body className="flex min-h-screen flex-col">
+        <OrganizationJsonLd />
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
       </body>
     </html>
   );
