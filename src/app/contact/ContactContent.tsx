@@ -9,11 +9,11 @@ const CONTACT_ITEMS = [
   {
     icon: Phone,
     label: "Phone",
-    lines: [COMPANY.phone, `Toll Free: ${COMPANY.tollFree} (${COMPANY.tollFreeFormatted})`],
+    lines: [COMPANY.phone, `Toll Free: ${COMPANY.tollFree}`],
   },
   { icon: Printer, label: "Fax", lines: [COMPANY.fax] },
   { icon: Mail, label: "Email", lines: [COMPANY.email] },
-  { icon: MapPin, label: "Address", lines: [COMPANY.address] },
+  { icon: MapPin, label: "Address", lines: [`${COMPANY.address.street}, ${COMPANY.address.city}, ${COMPANY.address.state} ${COMPANY.address.zip}`] },
   { icon: Clock, label: "Business Hours", lines: [COMPANY.hours] },
 ];
 

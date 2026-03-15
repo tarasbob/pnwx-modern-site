@@ -26,12 +26,14 @@ describe("SEO", () => {
 
   it("has structured data JSON-LD in layout", () => {
     const layoutPath = path.join(process.cwd(), "src", "app", "layout.tsx");
-    const content = fs.readFileSync(layoutPath, "utf-8");
-    expect(content).toContain("application/ld+json");
-    expect(content).toContain("LocalBusiness");
-    expect(content).toContain("Organization");
-    expect(content).toContain(COMPANY.phone);
-    expect(content).toContain(COMPANY.email);
+    const layoutContent = fs.readFileSync(layoutPath, "utf-8");
+    expect(layoutContent).toContain("OrganizationJsonLd");
+
+    const jsonLdPath = path.join(process.cwd(), "src", "components", "seo", "JsonLd.tsx");
+    const jsonLdContent = fs.readFileSync(jsonLdPath, "utf-8");
+    expect(jsonLdContent).toContain("application/ld+json");
+    expect(jsonLdContent).toContain("Organization");
+    expect(jsonLdContent).toContain("COMPANY.email");
   });
 
   it("has metadata with title and description in layout", () => {

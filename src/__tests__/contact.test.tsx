@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from "@testing-library/react";
+import { vi } from "vitest";
 import ContactForm from "@/components/ContactForm";
 
-// Mock framer-motion
-jest.mock("framer-motion", () => ({
+vi.mock("framer-motion", () => ({
   motion: {
     div: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => {
       const { initial, animate, whileInView, viewport, transition, ...rest } = props;

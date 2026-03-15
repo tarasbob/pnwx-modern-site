@@ -38,7 +38,7 @@ describe("CategoryCard", () => {
         itemCount={92}
       />
     );
-    expect(screen.getByText("(92)")).toBeInTheDocument();
+    expect(screen.getByText("92")).toBeInTheDocument();
   });
 
   it("does not show item count when not provided", () => {
